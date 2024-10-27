@@ -1,0 +1,65 @@
+{
+    "Book": {
+        "Harry Potter": {
+            "staff": "Malou Wang",
+            "station": 2,
+            "author": "J.K. Rowling",
+            "genre": "Fantasy"
+        },
+        "The Great Gatsby": {
+            "staff": "Malou Wang",
+            "station": 2,
+            "author": "F. Scott Fitzgerald",
+            "genre": "Classic"
+        },
+        "The Hunger Games": {
+            "staff": "Malou Wang",
+            "station": 2,
+            "author": "Suzanne Collins",
+            "genre": "Dystopian"
+        }
+    },
+    "Magazine": {
+        "AVON": {
+            "staff": "Tina Moran",
+            "station": 1,
+            "issue": "May 2024"
+        },
+        "Victoria Secret": {
+            "staff": "Tina Moran",
+            "station": 1,
+            "issue": "June 2024"
+        },
+        "Vogue": {
+            "staff": "Tina Moran",
+            "station": 1,
+            "issue": "July 2024"
+        }
+    },
+    "DVD": {
+        "Titanic": {
+            "staff": "Ping Guerrero",
+            "station": 3,
+            "director": "James Cameron",
+            "genre": "Drama/Romance"
+        },
+        "Beauty and the Beast": {
+            "staff": "Ping Guerrero",
+            "station": 3,
+            "director": "Bill Condon",
+            "genre": "Fantasy/Romance"
+        },
+        "Fast and Furious": {
+            "staff": "Ping Guerrero",
+            "station": 3,
+            "director": "Rob Cohen",
+            "genre": "Action"
+        },
+        "Time": {
+            "staff": "Ping Guerrero",
+            "station": 3,
+            "director": "Unknown",
+            "genre": "Documentary"
+        }
+    }
+}
