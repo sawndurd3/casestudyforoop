@@ -57,60 +57,50 @@ def borrow_or_return_item(patron):
     while True:
         item_type = input("What type of item would you like to search for? (Book/Magazine/DVD): ").strip()
 
-        # Check if the item type is valid
         if item_type not in staff_assignment:
             print("Invalid item type selected.")
             continue
 
         title = input(f"Enter the title of the {item_type}: ").strip()
 
-        # Use the search function to check item availability
         if not search_item(item_type, title):
-            continue  # Item is not available; prompt user again
+            continue
 
-        # Confirm if the user wants to borrow/return this item after the search
         action = input("Would you like to borrow or return this item? (borrow/return): ").strip().lower()
 
         if action not in ["borrow", "return"]:
             print("Invalid action.")
             continue
 
-        # Retrieve specific information from staff_assignment based on the item type
         item_data = staff_assignment[item_type][title]
 
         if item_type == "Book":
-            author = item_data.get("author", "Unknown Author")
-            genre = item_data.get("genre", "Unknown Genre")
-            item = Book(title, author, genre)
+            item = Book(title, item_data.get("author"), item_data.get("genre"))
         elif item_type == "Magazine":
-            issue = item_data.get("issue", "Unknown Issue")
-            item = Magazine(title, issue)
+            item = Magazine(title, item_data.get("issue"))
         elif item_type == "DVD":
-            director = item_data.get("director", "Unknown Director")
-            genre = item_data.get("genre", "Unknown Genre")
-            item = DVD(title, director, genre)
+            item = DVD(title, item_data.get("director"), item_data.get("genre"))
 
         if action == "borrow":
-            patron.borrow_item(item)
-            print(f"Total items remaining: {LibraryItem.total_items()}")  # Display remaining items after borrowing
+            if item.available:
+                patron.borrow_item(item)
+            else:
+                print(f"{item_type} '{title}' is currently unavailable.")
         elif action == "return":
             patron.return_item(item)
-            print(f"Total items remaining: {LibraryItem.total_items()}")  # Display remaining items after returning
+        
+        print(f"\nTotal items remaining: {LibraryItem.total_items()}")
 
         another_action = input("Would you like to search for another item? (yes/no): ").strip().lower()
         if another_action != "yes":
-            print("Saving your borrowing data...")
-            patron.save_patron_data()  # Save patron data before exiting
+            patron.save_patron_data()
             print("Thank you for using the library system!")
             break
 
 if __name__ == '__main__':
     # Initialize item count based on staff_assignment or previous run
     LibraryItem.initialize_item_count()
-
-    # Print the total number of items in the library
-    print(f"Total items in the library: {LibraryItem.total_items()}")
-
+    print(f"The Library has {LibraryItem._item_count} available items")
     # Main script
     user_name = input("Please enter your name: ").strip()
 

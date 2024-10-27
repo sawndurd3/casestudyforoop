@@ -11,8 +11,7 @@ class Patron:
     def __init__(self, name):
         self.__name = name
         self.checked_out_items = []  # Stores LibraryItem objects
-
-        # Load existing patron data to update the count
+        self.borrowed_count = 0  # Initialize borrowed count
         self.load_patron_count()
 
         # Increment the patron count only if it's a new patron
@@ -23,7 +22,6 @@ class Patron:
         try:
             with open(Patron.patrons_data_file, 'r') as file:
                 patrons_data = json.load(file)
-                # Update the class variable for patron count if it exists
                 if 'patron_count' in patrons_data:
                     Patron.patron_count = patrons_data['patron_count']
         except FileNotFoundError:
@@ -38,18 +36,26 @@ class Patron:
             return False  # If the file doesn't exist, this is a new patron
 
     def borrow_item(self, item):
+        # Check if the item is already borrowed by the patron
+        item_already_borrowed = any(
+            i._title == item._title and i._item_type == item._item_type for i in self.checked_out_items
+        )
+
+        if item_already_borrowed:
+            print(f"{self.__name} has already borrowed '{item._title}'. Cannot borrow the same item twice.")
+            return  # Exit the function if the item is already borrowed
+
         if len(self.checked_out_items) < Patron.max_items_allowed():
             if item.available:
-                # Retrieve staff and station information
                 staff_info = staff_assignment[item._item_type][item._title]
                 staff_name = staff_info["staff"]
                 staff_station = staff_info["station"]
-
                 # Check out the item and append it to the patron's checked-out items
                 item.check_out()
                 self.checked_out_items.append(item)
+                self.borrowed_count += 1  # Increment borrowed count when borrowing
 
-                # Print a structured output with simplified information
+                # Print structured output with simplified informations
                 print(f"\n{self.__name} borrowed a {item._item_type}.")
                 print(item)
                 print(f"This {item._item_type} is handled by {staff_name}. Go to station {staff_station} to check out.\n")
@@ -64,15 +70,19 @@ class Patron:
             print(f'{self.__name} has reached the maximum limit of borrowed items.')
 
     def return_item(self, item):
+        # Check if the item is in the patron's checked-out items
         item_found = any(i._title == item._title and i._item_type == item._item_type for i in self.checked_out_items)
 
         if item_found:
-            item.return_item()
+            item.return_item()  # Call return_item on the item to mark it as returned
             self.checked_out_items = [i for i in self.checked_out_items if not (i._title == item._title and i._item_type == item._item_type)]
-            print(f'{self.__name} returned {item._item_type}.')
+
+            self.borrowed_count -= 1  # Decrement the borrowed count when an item is returned
+            
+            print(f'{self.__name} returned a {item._item_type}.')
             delete_borrowing_data(self.__name, item._title, item._item_type)
         else:
-            print(f'{self.__name} does not have {item._item_type} checked out.')
+            print(f'\n{self.__name} does not have {item._item_type} checked out.')
 
     @classmethod
     def total_patrons(cls):
@@ -123,7 +133,7 @@ class Patron:
                         if item_type == "Book":
                             item = Book(title, "Unknown Author", 100)
                         elif item_type == "Magazine":
-                            item = Magazine(title, "Unknown Issue", 50)
+                            item = Magazine(title, "Unknown Issue")
                         elif item_type == "DVD":
                             item = DVD(title, "Unknown Director", 120)
                         else:

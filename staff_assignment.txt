@@ -17,6 +17,48 @@
             "station": 2,
             "author": "Suzanne Collins",
             "genre": "Dystopian"
+        },
+        "To Kill a Mockingbird": {
+            "staff": "Malou Wang",
+            "station": 2,
+            "author": "Harper Lee",
+            "genre": "Classic"
+        },
+        "1984": {
+            "staff": "Malou Wang",
+            "station": 2,
+            "author": "George Orwell",
+            "genre": "Dystopian"
+        },
+        "Moby Dick": {
+            "staff": "Malou Wang",
+            "station": 2,
+            "author": "Herman Melville",
+            "genre": "Adventure"
+        },
+        "Pride and Prejudice": {
+            "staff": "Malou Wang",
+            "station": 2,
+            "author": "Jane Austen",
+            "genre": "Romance"
+        },
+        "The Catcher in the Rye": {
+            "staff": "Malou Wang",
+            "station": 2,
+            "author": "J.D. Salinger",
+            "genre": "Fiction"
+        },
+        "The Lord of the Rings": {
+            "staff": "Malou Wang",
+            "station": 2,
+            "author": "J.R.R. Tolkien",
+            "genre": "Fantasy"
+        },
+        "Little Women": {
+            "staff": "Malou Wang",
+            "station": 2,
+            "author": "Louisa May Alcott",
+            "genre": "Classic"
         }
     },
     "Magazine": {
@@ -34,6 +76,41 @@
             "staff": "Tina Moran",
             "station": 1,
             "issue": "July 2024"
+        },
+        "National Geographic": {
+            "staff": "Tina Moran",
+            "station": 1,
+            "issue": "August 2024"
+        },
+        "Time": {
+            "staff": "Tina Moran",
+            "station": 1,
+            "issue": "September 2024"
+        },
+        "Forbes": {
+            "staff": "Tina Moran",
+            "station": 1,
+            "issue": "October 2024"
+        },
+        "Sports Illustrated": {
+            "staff": "Tina Moran",
+            "station": 1,
+            "issue": "November 2024"
+        },
+        "Scientific American": {
+            "staff": "Tina Moran",
+            "station": 1,
+            "issue": "December 2024"
+        },
+        "The New Yorker": {
+            "staff": "Tina Moran",
+            "station": 1,
+            "issue": "January 2025"
+        },
+        "People": {
+            "staff": "Tina Moran",
+            "station": 1,
+            "issue": "February 2025"
         }
     },
     "DVD": {
@@ -60,6 +137,42 @@
             "station": 3,
             "director": "Unknown",
             "genre": "Documentary"
+        },
+        "The Matrix": {
+            "staff": "Ping Guerrero",
+            "station": 3,
+            "director": "Lana Wachowski, Lilly Wachowski",
+            "genre": "Sci-Fi"
+        },
+        "Inception": {
+            "staff": "Ping Guerrero",
+            "station": 3,
+            "director": "Christopher Nolan",
+            "genre": "Sci-Fi/Thriller"
+        },
+        "Avatar": {
+            "staff": "Ping Guerrero",
+            "station": 3,
+            "director": "James Cameron",
+            "genre": "Sci-Fi/Fantasy"
+        },
+        "The Godfather": {
+            "staff": "Ping Guerrero",
+            "station": 3,
+            "director": "Francis Ford Coppola",
+            "genre": "Crime/Drama"
+        },
+        "Jurassic Park": {
+            "staff": "Ping Guerrero",
+            "station": 3,
+            "director": "Steven Spielberg",
+            "genre": "Adventure/Sci-Fi"
+        },
+        "The Shawshank Redemption": {
+            "staff": "Ping Guerrero",
+            "station": 3,
+            "director": "Frank Darabont",
+            "genre": "Drama"
         }
     }
 }
