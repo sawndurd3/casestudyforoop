@@ -55,7 +55,7 @@ class Patron:
                 self.checked_out_items.append(item)
                 self.borrowed_count += 1  # Increment borrowed count when borrowing
 
-                # Print structured output with simplified informations
+                # Print structured output with simplified information
                 print(f"\n{self.__name} borrowed a {item._item_type}.")
                 print(item)
                 print(f"This {item._item_type} is handled by {staff_name}. Go to station {staff_station} to check out.\n")
@@ -100,7 +100,14 @@ class Patron:
             patrons_data = {}
 
         # Save the patron's current checked out items
-        patrons_data[self.__name] = [{"title": item._title, "type": item._item_type} for item in self.checked_out_items]
+        patrons_data[self.__name] = [{
+            "title": item._title, 
+            "type": item._item_type,
+            "publication_year": item.publication_year,
+            "language": item.language,
+            "shelf_location": item.shelf_location,
+            "condition": item.condition
+        } for item in self.checked_out_items]
 
         # Prepare a new dictionary to maintain order
         ordered_data = {'patron_count': Patron.patron_count}  # Start with the patron_count at the top
@@ -129,13 +136,22 @@ class Patron:
                         title = item_data["title"]
                         item_type = item_data["type"]
                         
+                        # Retrieve additional attributes if available
+                        publication_year = item_data.get("publication_year", "Unknown")
+                        language = item_data.get("language", "English")
+                        shelf_location = item_data.get("shelf_location", "General")
+                        condition = item_data.get("condition", "Good")
+                        
                         # Create the corresponding item based on the type
                         if item_type == "Book":
-                            item = Book(title, "Unknown Author", 100)
+                            item = Book(title, "Unknown Author", "Unknown Genre", "N/A", 0,
+                                        publication_year, language, shelf_location, condition)
                         elif item_type == "Magazine":
-                            item = Magazine(title, "Unknown Issue")
+                            item = Magazine(title, "Unknown Issue", 0,
+                                            publication_year, language, shelf_location, condition)
                         elif item_type == "DVD":
-                            item = DVD(title, "Unknown Director", 120)
+                            item = DVD(title, "Unknown Director", "Unknown Genre", 0,
+                                       publication_year, language, shelf_location, condition)
                         else:
                             print(f"Unknown item type: {item_type}.")
                             continue  # Skip unknown item types

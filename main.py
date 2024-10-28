@@ -55,7 +55,7 @@ def search_item(item_type, title):
 
 def borrow_or_return_item(patron):
     while True:
-        item_type = input("What type of item would you like to search for? (Book/Magazine/DVD): ").strip()
+        item_type = input("\nWhat type of item would you like to search for? (Book/Magazine/DVD): ").strip()
 
         if item_type not in staff_assignment:
             print("Invalid item type selected.")
@@ -72,15 +72,28 @@ def borrow_or_return_item(patron):
             print("Invalid action.")
             continue
 
+        # Retrieve item data and additional attributes
         item_data = staff_assignment[item_type][title]
+        publication_year = item_data.get("publication_year", "Unknown")
+        language = item_data.get("language", "English")
+        shelf_location = item_data.get("shelf_location", "General")
+        condition = item_data.get("condition", "Good")
 
+        # Initialize the item based on type
         if item_type == "Book":
-            item = Book(title, item_data.get("author"), item_data.get("genre"))
+            item = Book(title, item_data.get("author"), item_data.get("genre"),
+                        item_data.get("ISBN", "N/A"), item_data.get("pages", 0),
+                        publication_year, language, shelf_location, condition)
         elif item_type == "Magazine":
-            item = Magazine(title, item_data.get("issue"))
+            item = Magazine(title, item_data.get("issue"),
+                            item_data.get("issue_number", 0),
+                            publication_year, language, shelf_location, condition)
         elif item_type == "DVD":
-            item = DVD(title, item_data.get("director"), item_data.get("genre"))
+            item = DVD(title, item_data.get("director"), item_data.get("genre"),
+                       item_data.get("duration", 0),
+                       publication_year, language, shelf_location, condition)
 
+        # Perform borrow or return action
         if action == "borrow":
             if item.available:
                 patron.borrow_item(item)
@@ -97,15 +110,28 @@ def borrow_or_return_item(patron):
             print("Thank you for using the library system!")
             break
 
+# Use the new class method to display all items in the library
+def display_all_items():
+    all_items = LibraryItem.get_all_items()
+    for item_type, items in all_items.items():
+        print(f"\n{item_type}s in Library:")
+        for title, details in items.items():
+            print(f" - {title}")
+
 if __name__ == '__main__':
     # Initialize item count based on staff_assignment or previous run
     LibraryItem.initialize_item_count()
     print(f"The Library has {LibraryItem._item_count} available items")
+
     # Main script
     user_name = input("Please enter your name: ").strip()
 
     # Load the patron's data if it exists
     patron = Patron.load_patron_data(user_name)
+
+    # Display all items in the library for the user
+    print("\nLibrary Catalog:")
+    display_all_items()
 
     # Start the borrowing/returning process
     borrow_or_return_item(patron)
