@@ -1,8 +1,7 @@
 class LibraryStaff:
     _staff_count = 0
 
-    def __init__(self, name, staff_station):
-        self.__name = name
+    def __init__(self, staff_station):
         self.staff_station = staff_station
         LibraryStaff._staff_count += 1
 
@@ -15,3 +14,4 @@ class LibraryStaff:
     @staticmethod
     def total_staff():
         return LibraryStaff._staff_count
+    
